@@ -1,0 +1,51 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <meta charset="utf-8" />
+    <title>JY-BLOG</title>
+    <link rel="stylesheet" href="../static/css/base.css" />
+    <link rel="stylesheet" href="../static/css/common.css" />
+    <link rel="stylesheet" href="../static/css/main.css" />
+    <script type="text/javascript" src="../static/js/jquery-1.9.1.min.js"></script>
+</head>
+
+<body>
+    <!--一级导航-->
+    <nav>
+        <ul>
+            <li><a href="main"><img src="../static/img/main/index-link.png" id="indexPage"/></a></li>
+            <li><a href="gallery"><img src="../static/img/main/gallery-link-hover.png" id="galleryPage" /></a></li>
+            <li><a href="communication"><img src="../static/img/main/ac-link.png" id="acPage" /></a></li>
+        </ul>
+    </nav>
+    
+    <div id="page-wrap">
+        <div id="showCase">
+            <img id="welPic" src={{ filename }} />
+            <p id="welTip">{{ desc }}</p>
+        </div>
+
+    </div>
+    <script>
+        $(document).ready(function() {
+
+            //一级导航hover图片变换
+            //首页
+            $('#indexPage').hover(function() {
+                $(this).attr('src','../static/img/main/index-link-hover.png');
+            }, function() {
+                $(this).attr('src','../static/img/main/index-link.png')
+            });
+
+            //交流
+            $('#acPage').hover(function() {
+                $(this).attr('src','../static/img/main/ac-link-hover.png');
+            }, function() {
+                $(this).attr('src','../static/img/main/ac-link.png');
+            });
+
+        });
+
+    </script>
+</body>
+</html>

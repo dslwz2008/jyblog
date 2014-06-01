@@ -1,0 +1,18 @@
+
+#enter-btn {
+    position: absolute;
+    top:  50%;
+    left: 50%;
+    margin-left: -72.5px;
+    margin-top: -69.5px;
+    cursor: pointer;
+}
+
+#footer {
+    position: absolute;
+    bottom: 0;
+    left: 20px;
+}
+
+
+

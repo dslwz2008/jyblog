@@ -1,0 +1,179 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <meta charset="utf-8">
+    <title>交流</title>
+    <link rel="stylesheet" href="../static/css/base.css" />
+    <link rel="stylesheet" href="../static/css/common.css" />
+    <link rel="stylesheet" href="../static/css/jPages.css" />
+    <link rel="stylesheet" href="../static/css/animate.css" />
+    <link rel="stylesheet" href="../static/css/communicate.css" />
+
+    <script type="text/javascript" src="../static/js/jquery-1.9.1.min.js"></script>
+    <script type="text/javascript" src="../static/js/jPages.min.js"></script>
+    <script type="text/javascript" src="../static/js/highlight.pack.js"></script>
+    <script type="text/javascript" src="../static/js/tabifier.js"></script>
+    <script type="text/javascript" src="../static/js/js.js"></script>
+</head>
+<body>
+    <!--一级导航-->
+    <nav>
+        <ul>
+            <li id="a"><a href="main"><img src="../static/img/main/index-link.png" id="indexPage"/></a></li>
+            <li><a><img src="../static/img/main/gallery-link.png" id="galleryPage" /></a></li>
+            <li><a><img src="../static/img/main/ac-link-hover.png" id="acPage" /></a></li>
+        </ul>
+    </nav>
+    <div class="page-wrap">
+        <div class="imgList floatLeft">
+            <div id="content" class="clearfix">
+                <!-- item container -->
+                <ul id="itemContainer">
+                    <li class="thumbnail"><img src="../static/img/img%20(1).jpg"></li>
+                    <li class="thumbnail"><img src="../static/img/img%20(2).jpg"></li>
+                    <li class="thumbnail"><img src="../static/img/img%20(3).jpg"></li>
+                    <li class="thumbnail"><img src="../static/img/img%20(4).jpg"></li>
+                    <li class="thumbnail"><img src="../static/img/img%20(5).jpg"></li>
+                    <li class="thumbnail"><img src="../static/img/img%20(6).jpg"></li>
+                    <li class="thumbnail"><img src="../static/img/img%20(7).jpg"></li>
+                    <li class="thumbnail"><img src="../static/img/img%20(8).jpg"></li>
+                    <li class="thumbnail"><img src="../static/img/img%20(9).jpg"></li>
+                    <li class="thumbnail"><img src="../static/img/img%20(10).jpg"></li>
+                    <li class="thumbnail"><img src="../static/img/img%20(11).jpg"></li>
+                    <li class="thumbnail"><img src="../static/img/img%20(12).jpg"></li>
+
+                    <li class="thumbnail"><img src="../static/img/img%20(5).jpg"></li>
+                    <li class="thumbnail"><img src="../static/img/img%20(2).jpg"></li>
+                    <li class="thumbnail"><img src="../static/img/img%20(3).jpg"></li>
+                    <li class="thumbnail"><img src="../static/img/img%20(4).jpg"></li>
+                    <li class="thumbnail"><img src="../static/img/img%20(5).jpg"></li>
+                    <li class="thumbnail"><img src="../static/img/img%20(6).jpg"></li>
+                    <li class="thumbnail"><img src="../static/img/img%20(7).jpg"></li>
+                    <li class="thumbnail"><img src="../static/img/img%20(8).jpg"></li>
+                    <li class="thumbnail"><img src="../static/img/img%20(9).jpg"></li>
+                    <li class="thumbnail"><img src="../static/img/img%20(10).jpg"></li>
+                    <li class="thumbnail"><img src="../static/img/img%20(11).jpg"></li>
+                    <li class="thumbnail"><img src="../static/img/img%20(12).jpg"></li>
+                </ul>
+
+                <!-- navigation holder -->
+                <div class="holder"></div>
+            </div>
+        </div>
+        <div class="comment floatRight">
+            <div class="commentList">
+                <ul>
+                    <li>
+                        <p class="ask">申申：今天天气？</p>
+                        <p class="answer">回复：晴天</p>
+                    </li>
+                    <li>
+                        <p class="ask">邱邱：发大水法撒旦法萨发生的发生发生</p>
+                        <p class="answer">回复：dafddfasdfad</p>
+                    </li>
+                    <li>
+                        <p class="ask">申申：今天天气？</p>
+                        <p class="answer">回复：晴天</p>
+                    </li>
+                    <li>
+                        <p class="ask">邱邱：发大水法撒旦法萨发生的发生发生</p>
+                        <p class="answer">回复：dafddfasdfad</p>
+                    </li>
+                    <li>
+                        <p class="ask">申申：今天天气？</p>
+                        <p class="answer">回复：晴天</p>
+                    </li>
+                    <li>
+                        <p class="ask">
+                            邱邱：发大水法撒旦法萨发生的发生发生发大水法撒旦法萨大方的发送到飞发大水发到付阿道夫奥德赛发</p>
+                        <p class="answer">回复：dafddfasdfad</p>
+                    </li>
+                    <li>
+                        <p class="ask">申申：今天天气？</p>
+                        <p class="answer">回复：晴天</p>
+                    </li>
+                </ul>
+            </div>
+            <div class="inputComment">
+                <textarea rows="6" cols="62" style="background: #252628;border: none"></textarea>
+                <input type="text" placeholder="NAME:" style="background: #191919;border: none">
+            </div>
+        </div>
+    </div>
+    <script>
+        /* when document is ready */
+        $(function() {
+            /* initiate plugin */
+            $("div.holder").jPages({
+                containerID: "itemContainer",
+                perPage:12,
+                previous:"‹‹‹",
+                next:"›››"
+            });
+        });
+
+        $(document).ready(function() {
+
+            //一级导航hover图片变换
+            //首页
+            $('#indexPage').hover(function() {
+                $(this).attr('src','../static/img/main/index-link-hover.png');
+            }, function() {
+                $(this).attr('src','../static/img/main/index-link.png')
+            });
+
+            //画廊
+            $('#galleryPage').hover(function() {
+                $(this).attr('src','../static/img/main/gallery-link-hover.png');
+            }, function() {
+                $(this).attr('src','../static/img/main/gallery-link.png');
+            });
+
+
+            $('ul#itemContainer li.thumbnail').hover(function() {
+                $(this).css('border-color','white');
+            },function() {
+                $(this).css('border-color','#191919');
+            });
+
+//            $('.thumbnail').click(function() {
+//                $('#loadgif').fadeIn();
+//                var name = $(this).find('img').attr('alt');
+//                //直接请求的方法
+//                //$('#picture').attr('src',"/picture/"+name);
+//                $.ajax({
+//                    type: "get",
+//                    url: "/picture",
+//                    data: { name: name }
+//                }).done(function( msg ) {
+//                            $('#loadgif').fadeOut();
+//                            $('#showImage').animate({width:msg.width+'px',
+//                                height:msg.height+'px'
+//                                ,top:'50%'
+//                                ,left:'50%'
+//                                ,marginTop:-msg.height/2
+//                                ,marginLeft:-msg.width/2},1000,function() {
+//                                $('#picture').attr('src','../'+msg.filename);
+//                            });
+//                            //这里拿到了图片的宽高，和图片名称
+//                            //例如：static/pictures/IMAG0008.jpg 用的时候在前面加上"../"
+//                        });
+//
+//
+//                $('#showImage').fadeIn();
+//                $('#bg-overlay').fadeIn();
+//
+//            });
+//
+//            $('#close').click(function() {
+//                $('#bg-overlay').fadeOut();
+//                $('#showImage').hide();
+//                $('#picture').attr('src','');
+//                $('#showImage').css({width:'600px',height:'400px',marginLeft:'-300px',marginTop:'-200px'});
+//            })
+        });
+
+    </script>
+
+</body>
+</html>
