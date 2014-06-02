@@ -1,4 +1,4 @@
 jyblog
 ======
 
-codes for personal blog of JingYin, an artist.
+codes for personal blog of JY, an artist.
