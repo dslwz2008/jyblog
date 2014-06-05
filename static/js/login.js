@@ -16,7 +16,7 @@ $(document).ready(function() {
             pwd : pwd
         };
         $.ajax({
-            url : 'http://192.168.1.109:8080/validate',
+            url : 'http://127.0.0.1:8000/validate',
             type : 'POST',
             data : args,
             success : function(response) {
