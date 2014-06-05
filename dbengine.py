@@ -6,7 +6,7 @@ import pymongo
 from bson.binary import Binary
 from bson.objectid import ObjectId
 
-CONN_STRING = "mongodb://127.0.0.1"
+CONN_STRING = "mongodb://128.199.189.87"
 DB_NAME = 'jyblog'
 COL_IMAGES = 'images'
 COL_SKETCHES = 'sketches'
