@@ -1,18 +1,9 @@
-
-#enter-btn {
-    position: absolute;
-    top:  50%;
-    left: 50%;
-    margin-left: -72.5px;
-    margin-top: -69.5px;
-    cursor: pointer;
-}
-
-#footer {
-    position: absolute;
-    bottom: 0;
-    left: 20px;
-}
-
-
-
+/**
+ * Created by peijiqiu on 2014/6/8.
+ * E-mail : peijiqiu@gmail.com
+ */
+.logo { display: block; width:145px; height:139px; position:absolute; left:50%; top:50%; margin-left:-72px; margin-top: -89px;
+        background: url("../img/index/logo.png") no-repeat left center; cursor: pointer; }
+.logo:hover { background: url("../img/index/logo-hover.png")}
+.logo:active { background: url("../img/index/logo-active.png")}
+.corner { width: 20px; height: 20px; position: absolute; left: 20px; bottom: 10px; background: url("../img/index/corner-icon.png") no-repeat left center;}
