@@ -22,7 +22,11 @@ settings = {
 }
 
 #图片和缩略图都放在这个文件夹中
-PICT_PATH = "static/pictures/"
+IMAGES_DIR = "static/imagedb/images/"
+IMAGES_THUMB_DIR = "static/imagedb/images_thumb/"
+SKETCHES_DIR = "static/imagedb/sketches/"
+SKETCHES_THUMB_DIR = "static/imagedb/sketches_thumb/"
+LINKS_IMG_DIR = "static/imagedb/links_img/"
 USERNAME = "jingyin"
 PASSWORD = "3856975"
 SECRET = PASSWORD + USERNAME
@@ -35,11 +39,12 @@ class IndexHandler(tornado.web.RequestHandler):
         
 class MainHandler(tornado.web.RequestHandler):
     def get(self):
-        doc = dbengine.get_latest_pictures(dbengine.COL_IMAGES, 1)[0]
-        filename = PICT_PATH + doc['name']
-        #先检查缓存中是不是存在
-        if not os.path.isfile(filename):
-            util.save_binary_to_file(doc['data'], filename)
+        # doc = dbengine.get_latest_pictures(dbengine.COL_IMAGES, 1)[0]
+        doc = dbengine.get_cover_image(dbengine.COL_IMAGES)[0]
+        filename = IMAGES_DIR + doc['name']
+        # #先检查缓存中是不是存在
+        # if not os.path.isfile(filename):
+        #     util.save_binary_to_file(doc['data'], filename)
         self.render('main.html', filename = filename, desc = doc.get('description', ERROR_NO_DESCRIPTION))
 
 class FileUploadHandler(tornado.web.RequestHandler):
@@ -56,24 +61,23 @@ class FileUploadHandler(tornado.web.RequestHandler):
             self.redirect('login')
     def post(self):
         target = self.get_argument('target')
+        # upload images
         if target == dbengine.COL_IMAGES:
             if not self.request.files or not self.request.files.get('picture') or not self.request.files.get('thumbnail'):
                 error_nofile = u'没有选择图片文件'
                 self.render('fileupload.html', error = error_nofile,  items = None)
                 return
             items = self.upload_image_to_collection(dbengine.COL_IMAGES)
-            del items['data']
-            del items['thumbdata']
             self.render('fileupload.html', error = '', items = items.values())
+        # upload sketches
         elif target == dbengine.COL_SKETCHES:
             if not self.request.files or not self.request.files.get('picture') or not self.request.files.get('thumbnail'):
                 error_nofile = u'没有选择图片文件'
                 self.render('fileupload.html', error = error_nofile,  items = None)
                 return
             items = self.upload_image_to_collection(dbengine.COL_SKETCHES)
-            del items['data']
-            del items['thumbdata']
             self.render('fileupload.html', error = '', items = items.values())
+        # upload links
         elif target == dbengine.COL_LINKS:
             if not self.request.files or not self.request.files.get('picture'):
                 error_nofile = u'没有选择图片文件'
@@ -83,8 +87,8 @@ class FileUploadHandler(tornado.web.RequestHandler):
                 error_params = u'缺少必要的参数'
                 self.render('fileupload.html', error = error_params,  items = None)
             items = self.upload_link_to_collection(dbengine.COL_LINKS)
-            del items['imagedata']
             self.render('fileupload.html', error = '', items = items.values())
+        # further
         elif target == 'comments':
             #not yet
             pass
@@ -95,24 +99,39 @@ class FileUploadHandler(tornado.web.RequestHandler):
         items['url'] = self.get_argument('url')
         for pic in self.request.files['picture']:
             #要去掉名字中间的空格
-            items['imagename'] = ''.join(pic['filename'].split(' '))
-            items['imagedata'] = Binary(pic['body'])
+            filename = items['imagename'] = ''.join(pic['filename'].split(' '))
+            # items['imagedata'] = Binary(pic['body'])
+            with open(LINKS_IMG_DIR + filename, 'wb') as fp:
+                fp.write(pic['body'])
         dbengine.add_link(items, collection)
         return items
 
     def upload_image_to_collection(self, collection):
         items = {}
+        images_dir = ''
+        thumbnail_dir = ''
+        if collection == dbengine.COL_IMAGES:
+            images_dir = IMAGES_DIR
+            thumbnail_dir = IMAGES_THUMB_DIR
+        else:
+            images_dir = SKETCHES_DIR
+            thumbnail_dir = SKETCHES_THUMB_DIR
+
         #全部图片均直接存储在数据库collection中
         for pic in self.request.files['picture']:
             #要去掉名字中间的空格
-            items['name'] = ''.join(pic['filename'].split(' '))
-            items['data'] = Binary(pic['body'])
+            filename = items['name'] = ''.join(pic['filename'].split(' '))
+            # items['data'] = Binary(pic['body'])
+            with open(images_dir + filename, 'wb') as fp:
+                fp.write(pic['body'])
         
         for tn in self.request.files['thumbnail']:
             #要去掉名字中间的空格
-            items['thumbname'] = ''.join(tn['filename'].split(' '))
-            items['thumbdata'] = Binary(tn['body'])
-            
+            filename = items['thumbname'] = ''.join(tn['filename'].split(' '))
+            # items['thumbdata'] = Binary(tn['body'])
+            with open(thumbnail_dir + filename, 'wb') as fp:
+                fp.write(tn['body'])
+
         if self.get_argument('uploadtime'):
             upload_time = self.get_argument('uploadtime')
             items['uploadtime'] = util.datetime_from_string(upload_time)
@@ -123,7 +142,11 @@ class FileUploadHandler(tornado.web.RequestHandler):
             desc = self.get_argument('description')
             items['description'] = desc
         
-        #write to database
+        # if cover image exists
+        cvr_img = dbengine.get_cover_image(collection)
+        if len(cvr_img) != 0:
+            dbengine.cancel_cover_image(cvr_img[0], collection)
+        items['cover'] = True
         dbengine.add_image(items, collection)
         return items
 
@@ -134,10 +157,9 @@ class GalleryHandler(tornado.web.RequestHandler):
         thumbnames = []
         fullnames = []
         for pic in pictures:
-            fullnames.append(pic['name'])#为了方便点击取大图
-            thumbfile = PICT_PATH + pic['thumbname']
-            if not os.path.isfile(thumbfile):
-                util.save_binary_to_file(pic['thumbdata'], thumbfile)
+            fullnames.append(pic['name'])
+            #need to display
+            thumbfile = IMAGES_THUMB_DIR + pic['thumbname']
             thumbnames.append(thumbfile)
         #计算空白页的数量
         whole = util.get_min_wholepage_mount(len(pictures))
@@ -148,10 +170,8 @@ class PictureHandler(tornado.web.RequestHandler):
     def get(self):
         name = self.get_argument('name')
         doc = dbengine.get_picture_by_name(dbengine.COL_IMAGES, name)
-        filename = PICT_PATH + name
+        filename = IMAGES_DIR + name
         #print filename
-        if not os.path.isfile(filename):
-            util.save_binary_to_file(doc['data'], filename)
         self.render('picture.html', filename = filename, desc = doc.get('description', ERROR_NO_DESCRIPTION))
         # #直接返回图片数据的版本
         # self.set_header("Cache-Control", "public")

@@ -46,28 +46,9 @@ def get_latest_pictures(collection, num):
                 result.append(doc)
             return result
 
-def add_image(doc_picture, collection):
-    """把指定的picture数据存入指定的文档"""
-    with pymongo.Connection(CONN_STRING, safe=True) as conn:
-        db = conn[DB_NAME]
-        pictures = db[collection]
-        try:
-            pictures.insert(doc_picture)
-        except:
-            print "Unexpected error:", sys.exc_info()[0]
-
-def add_link(doc_link, collection):
-    """把指定的link数据存入指定的文档"""
-    with pymongo.Connection(CONN_STRING, safe=True) as conn:
-        db = conn[DB_NAME]
-        links = db[collection]
-        try:
-            links.insert(doc_link)
-        except:
-            print "Unexpected error:", sys.exc_info()[0]
 
 def find_all_pictures(collection):
-    """在指定的文档中，查询所有的图片"""
+    """return all the pictures in DESCENDING order"""
     with pymongo.Connection(CONN_STRING, safe=True) as conn:
         db = conn[DB_NAME]
         pictures = db[collection]
@@ -84,22 +65,127 @@ def find_all_pictures(collection):
                 result.append(doc)
             return result
 
-def test_binary():
+
+def add_image(doc_picture, collection):
+    """把指定的picture数据存入指定的文档"""
     with pymongo.Connection(CONN_STRING, safe=True) as conn:
         db = conn[DB_NAME]
-        links = db['links']
-        image = open('./static/pictures/200910310.jpg', 'rb')
-        links.insert({'name':'a cow', 'image':Binary(image.read()),
-                      'url':'http://www.ytxwz.com'})
+        pictures = db[collection]
+        try:
+            pictures.insert(doc_picture)
+        except:
+            print "Unexpected error:", sys.exc_info()[0]
 
-def test_read_picture():
+
+def remove_image(img_name, collection):
+    """remove an image"""
     with pymongo.Connection(CONN_STRING, safe=True) as conn:
         db = conn[DB_NAME]
-        links = db['links']
-        entry = links.find_one()
-        fp = open('./static/pictures/test1.png', 'w')
-        fp.write(entry['image'])
+        pictures = db[collection]
+        try:
+            pictures.remove({'name':img_name})
+        except:
+            print "Unexpected error:", sys.exc_info()[0]
 
+
+def cancel_cover_image(doc, collection):
+    """cancel cover image which will show in the main page by its filename"""
+    with pymongo.Connection(CONN_STRING, safe=True) as conn:
+        db = conn[DB_NAME]
+        pictures = db[collection]
+        try:
+            pictures.update({'name':doc['name']}, {"$set":{'cover':False}})
+        except:
+            print "Unexpected error:", sys.exc_info()[0]
+
+
+def set_cover_image(name, collection):
+    """set cover image which will show in the main page by its filename"""
+    with pymongo.Connection(CONN_STRING, safe=True) as conn:
+        db = conn[DB_NAME]
+        pictures = db[collection]
+        try:
+            pictures.update({'name':name}, {"$set":{'cover':True}})
+        except:
+            print "Unexpected error:", sys.exc_info()[0]
+
+
+def get_cover_image(collection):
+    """get cover image, return at most one document"""
+    with pymongo.Connection(CONN_STRING, safe=True) as conn:
+        db = conn[DB_NAME]
+        pictures = db[collection]
+        result = []
+        cursor = None
+        try:
+            cursor = pictures.find({'cover':True})
+        except:
+            print "Unexpected error:", sys.exc_info()[0]
+
+        if cursor:
+            for doc in cursor:
+                result.append(doc)
+            return result
+
+
+def get_all_links(collection):
+    """return all the pictures in DESCENDING order"""
+    with pymongo.Connection(CONN_STRING, safe=True) as conn:
+        db = conn[DB_NAME]
+        links = db[collection]
+        result = []
+        cursor = None
+
+        try:
+            cursor = links.find().sort('name', pymongo.DESCENDING)
+        except:
+            print "Unexpected error:", sys.exc_info()[0]
+
+        if cursor:
+            for doc in cursor:
+                result.append(doc)
+            return result
+
+
+def add_link(doc_link, collection):
+    """把指定的link数据存入指定的文档"""
+    with pymongo.Connection(CONN_STRING, safe=True) as conn:
+        db = conn[DB_NAME]
+        links = db[collection]
+        try:
+            links.insert(doc_link)
+        except:
+            print "Unexpected error:", sys.exc_info()[0]
+
+
+def remove_link(link_name, collection):
+    """把指定的link数据存入指定的文档"""
+    with pymongo.Connection(CONN_STRING, safe=True) as conn:
+        db = conn[DB_NAME]
+        links = db[collection]
+        try:
+            links.remove({'name':link_name})
+        except:
+            print "Unexpected error:", sys.exc_info()[0]
+
+
+# def test_binary():
+#     with pymongo.Connection(CONN_STRING, safe=True) as conn:
+#         db = conn[DB_NAME]
+#         links = db['links']
+#         image = open('./static/pictures/200910310.jpg', 'rb')
+#         links.insert({'name':'a cow', 'image':Binary(image.read()),
+#                       'url':'http://www.ytxwz.com'})
+#
+# def test_read_picture():
+#     with pymongo.Connection(CONN_STRING, safe=True) as conn:
+#         db = conn[DB_NAME]
+#         links = db['links']
+#         entry = links.find_one()
+#         fp = open('./static/pictures/test1.png', 'w')
+#         fp.write(entry['image'])
+
+# cpmments is not used in version 1.0
 def add_comment(doc_comment, collection):
     """添加评论"""
     with pymongo.Connection(CONN_STRING, safe=True) as conn:
@@ -156,4 +242,5 @@ if __name__ == '__main__':
     # add_comment({u'name':u"小数", u'comment':u'不错呀'}, COL_COMMENTS)
     # add_comment({u'name':u"天天", u'comment':u'不错呀'}, COL_COMMENTS)
     #get_comment(COL_COMMENTS)
-    add_reply_to_comment('5219c638421aa904e041cfae', COL_COMMENTS, u'通过pymongo添加')
+    # add_reply_to_comment('5219c638421aa904e041cfae', COL_COMMENTS, u'通过pymongo添加')
+    pass
