@@ -1,0 +1,29 @@
+/**
+ * Created by peijiqiu on 2014/6/15.
+ * E-mail : peijiqiu@gmail.com
+ */
+.nav { position: relative;  margin: 0 auto; margin-top: 140px; text-align: center; width: 129px;}
+.nav a { display: block; width: 129px; height: 21px; cursor: pointer;}
+.nav a.l_index { background: url("../img/common/index-link.png") no-repeat left center;}
+.nav a.l_index:hover { background: url("../img/common/index-link-hover.png")}
+.nav a.l_index:active { background: url("../img/common/index-link-dark.png")}
+.nav a.l_gallery { background: url("../img/common/gallery-link.png") no-repeat left center;}
+.nav a.l_gallery:hover { background: url("../img/common/gallery-link-hover.png")}
+.nav a.l_gallery:active { background: url("../img/common/gallery-link-active.png")}
+.nav a.l_comm { background: url("../img/common/ac-link-hover.png") no-repeat left center;}
+.nav a.l_comm:hover { background: url("../img/common/ac-link-hover.png")}
+.nav a.l_comm:active { background: url("../img/common/ac-link-active.png")}
+
+.main-content { text-align: center; padding-top: 40px; margin-bottom: 200px; }
+.main-content .thumb li { display: inline; margin-left: -8px; }
+.main-content .thumb li img { border: 2px solid #191919;}
+.main-content .thumb li img:hover { border: 2px solid #ffffff}
+.main-content .contact { margin: 0 auto; padding: 20px 0; width:129px; height:21px; background: url("../img/common/index-link.png") no-repeat left center;}
+.main-content .link { margin: 0 auto; padding:20px 0; width:129px; height:21px; background: url("../img/common/index-link.png") no-repeat left center;}
+.main-content .contact-wrap { padding-top:25px; background: #252628; width: 628px; height: 103px; vertical-align:middle; margin: 0 auto; text-align: center;}
+.main-content .contact-wrap a { display: block;color: #b3b3b3; font-size: 14px; font-weight: bold; margin: 10px 0; text-decoration: none; }
+
+.main-content .link-list { margin-bottom: 3px;}
+.main-content .link-list li { margin-left:-5px;display: inline-block; width: 200px; height: 50px; line-height:50px;
+    vertical-align: middle;background: #252628; }
+.main-content .link-list li a { color: #b3b3b3; font-weight: bold; font-size: 13px; text-decoration: none;}

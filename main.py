@@ -195,7 +195,7 @@ class CommunicationHandler(tornado.web.RequestHandler):
     def get(self):
         value = self.get_cookie('test')
         #print value
-        self.render('communication.html')
+        self.render('ac.html')
 
 class UserValidateHandler(tornado.web.RequestHandler):
     def post(self):
@@ -231,7 +231,7 @@ if __name__ == "__main__":
                   (r'/validate', UserValidateHandler),
                   (r'/picture', PictureHandler),
                   (r'/gallery', GalleryHandler),
-                  (r'/communication', CommunicationHandler),
+                  (r'/ac', CommunicationHandler),
                   (r'/main', MainHandler), 
                   (r'/', IndexHandler),
                   ], **settings
