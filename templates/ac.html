@@ -18,14 +18,9 @@
         </div>
         <div class="main-content">
             <ul class="thumb">
-                <li><img src="../static/img/common/ac.png "></li>
-                <li><img src="../static/img/common/ac.png "></li>
-                <li><img src="../static/img/common/ac.png "></li>
-                <li><img src="../static/img/common/ac.png "></li>
-                <li><img src="../static/img/common/ac.png "></li>
-                <li><img src="../static/img/common/ac.png "></li>
-                <li><img src="../static/img/common/ac.png "></li>
-                <li><img src="../static/img/common/ac.png "></li>
+                {% for n in range(len(sketches)) %}
+                <li><a target="_blank" href="/picture?name={{ sketches[n]['name'] }}&type=sketch"><img src="../static/imagedb/sketches/{{ sketches[n]['thumbname'] }}"></a></li>
+                {% end for %}
             </ul>
             <div class="contact"></div>
             <div class="contact-wrap">
@@ -34,16 +29,14 @@
             </div>
             <div class="link"></div>
             <ul class="link-list">
-                <li><a href="http://ytxwz.sinaapp.com/" target="_blank">樱桃小丸子</a></li>
-                <li>ww</li>
-                <li>ww</li>
-                <li>ww</li>
+                {% for n in range(4) %}
+                <li><a href="{{ links[n]['url'] }}" target="_blank">{{ links[n]['name'] }}</a></li>
+                {% end for %}
             </ul>
             <ul class="link-list">
-                <li>ww</li>
-                <li>ww</li>
-                <li>ww</li>
-                <li>ww</li>
+                {% for n in range(4,8) %}
+                <li><a href="{{ links[n]['url'] }}" target="_blank">{{ links[n]['name'] }}</a></li>
+                {% end for %}
             </ul>
         </div>
         <div class="push"></div>

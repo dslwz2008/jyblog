@@ -20,7 +20,7 @@
         <div class="main-content">
             <ul id="gallery-wrap" class="clearfix">
                 {% for n in range(len(thumbnames)) %}
-                <li class="thumbnail"><a target="_blank" href="/picture?name={{ fullnames[n] }}"><img src="{{ thumbnames[n] }}" alt="{{ fullnames[n] }}"></a></li>
+                <li class="thumbnail"><a target="_blank" href="/picture?name={{ fullnames[n] }}&type=image"><img src="{{ thumbnames[n] }}" alt="{{ fullnames[n] }}"></a></li>
                 {% end for %}
                 {% for n in range(blank_count) %}
                 <li><img src="../static/img/common/blank200.png"></li>

@@ -79,10 +79,10 @@ class FileUploadHandler(tornado.web.RequestHandler):
             self.render('fileupload.html', error = '', items = items.values())
         # upload links
         elif target == dbengine.COL_LINKS:
-            if not self.request.files or not self.request.files.get('picture'):
-                error_nofile = u'没有选择图片文件'
-                self.render('fileupload.html', error = error_nofile,  items = None)
-                return
+            # if not self.request.files or not self.request.files.get('picture'):
+            #     error_nofile = u'没有选择图片文件'
+            #     self.render('fileupload.html', error = error_nofile,  items = None)
+            #     return
             if not self.get_argument('name') or not self.get_argument('url'):
                 error_params = u'缺少必要的参数'
                 self.render('fileupload.html', error = error_params,  items = None)
@@ -97,12 +97,13 @@ class FileUploadHandler(tornado.web.RequestHandler):
         items = {}
         items['name'] = self.get_argument('name')
         items['url'] = self.get_argument('url')
-        for pic in self.request.files['picture']:
-            #要去掉名字中间的空格
-            filename = items['imagename'] = ''.join(pic['filename'].split(' '))
-            # items['imagedata'] = Binary(pic['body'])
-            with open(LINKS_IMG_DIR + filename, 'wb') as fp:
-                fp.write(pic['body'])
+        if self.request.files.get('picture') is not None:
+            for pic in self.request.files['picture']:
+                #要去掉名字中间的空格
+                filename = items['imagename'] = ''.join(pic['filename'].split(' '))
+                # items['imagedata'] = Binary(pic['body'])
+                with open(LINKS_IMG_DIR + filename, 'wb') as fp:
+                    fp.write(pic['body'])
         dbengine.add_link(items, collection)
         return items
 
@@ -168,9 +169,15 @@ class GalleryHandler(tornado.web.RequestHandler):
 
 class PictureHandler(tornado.web.RequestHandler):
     def get(self):
+        pic_type = self.get_argument('type')
+        collection = dbengine.COL_IMAGES
+        images_dir = IMAGES_DIR
+        if pic_type == 'sketch':
+            collection = dbengine.COL_SKETCHES
+            images_dir = SKETCHES_DIR
         name = self.get_argument('name')
-        doc = dbengine.get_picture_by_name(dbengine.COL_IMAGES, name)
-        filename = IMAGES_DIR + name
+        doc = dbengine.get_picture_by_name(collection, name)
+        filename = images_dir + name
         #print filename
         self.render('main.html', filename = filename, desc = doc.get('description', ERROR_NO_DESCRIPTION))
         # #直接返回图片数据的版本
@@ -193,9 +200,11 @@ class PictureHandler(tornado.web.RequestHandler):
 
 class CommunicationHandler(tornado.web.RequestHandler):
     def get(self):
-        value = self.get_cookie('test')
-        #print value
-        self.render('ac.html')
+        # value = self.get_cookie('test')
+        # print value
+        sketches = dbengine.find_all_pictures(dbengine.COL_SKETCHES)
+        links = dbengine.get_all_links(dbengine.COL_LINKS)
+        self.render('ac.html', sketches=sketches, links=links)
 
 class UserValidateHandler(tornado.web.RequestHandler):
     def post(self):
