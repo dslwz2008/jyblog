@@ -172,7 +172,7 @@ class PictureHandler(tornado.web.RequestHandler):
         doc = dbengine.get_picture_by_name(dbengine.COL_IMAGES, name)
         filename = IMAGES_DIR + name
         #print filename
-        self.render('picture.html', filename = filename, desc = doc.get('description', ERROR_NO_DESCRIPTION))
+        self.render('main.html', filename = filename, desc = doc.get('description', ERROR_NO_DESCRIPTION))
         # #直接返回图片数据的版本
         # self.set_header("Cache-Control", "public")
         # self.set_header('Content-Type', 'image/jpeg')

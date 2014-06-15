@@ -1,0 +1,20 @@
+/**
+ * Created by peijiqiu on 2014/6/15.
+ * E-mail : peijiqiu@gmail.com
+ */
+
+/*footer置低*/
+.footer { height: 150px; border-top: 2px solid #3e3e3e; width: 1280px; margin: 0 auto;}
+{
+    margin: 0;
+}
+html, body {
+    height: 100%;
+}
+.wrapper {
+    min-height: 100%;
+    height: auto !important;
+    height: 100%;
+    margin: 0 auto -152px;
+}
+.push { height: 152px;}

@@ -2,6 +2,7 @@
  * Created by peijiqiu on 2014/6/8.
  * E-mail : peijiqiu@gmail.com
  */
+body { background: #191919 url("../img/common/bg.png") no-repeat center top;}
 .logo { display: block; width:145px; height:139px; position:absolute; left:50%; top:50%; margin-left:-72px; margin-top: -89px;
         background: url("../img/index/logo.png") no-repeat left center; cursor: pointer; }
 .logo:hover { background: url("../img/index/logo-hover.png")}

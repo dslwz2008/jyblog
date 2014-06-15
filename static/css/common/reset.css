@@ -52,4 +52,8 @@ table {
 	border-spacing: 0;
 }
 /*page style for jyblog site*/
-body { background: #191919 url("../../img/common/bg.png") no-repeat right top;}
+body { background: #191919 url("../../img/common/bg_main.png") no-repeat center top;}
+
+.clearfix:before, .clearfix:after { content: ""; display: table; }
+.clearfix:after { clear: both; }
+.clearfix { zoom: 1; }

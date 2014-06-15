@@ -1,125 +1,50 @@
 <!DOCTYPE html>
 <html>
 <head>
-    <meta charset="utf-8" />
-    <title>JY-Gallery</title>
-    <link rel="stylesheet" href="../static/css/base.css" />
-    <link rel="stylesheet" href="../static/css/common.css" />
+    <meta http-equiv="Content-Type" content="text/html; charset=utf-8"/>
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>JY-BLOG Gallery</title>
+    <meta http-equiv="X-UA-Compatible" content="IE=edge,chrome=1"/>
+    <link rel="stylesheet" href="../static/css/common/reset.css" />
+    <link rel="stylesheet" href="../static/css/common/footer.css" />
     <link rel="stylesheet" href="../static/css/jPages.css" />
-    <link rel="stylesheet" href="../static/css/style.css" />
-    <link rel="stylesheet" href="../static/css/animate.css" />
-
-    <script type="text/javascript" src="../static/js/jquery-1.9.1.min.js"></script>
-    <script type="text/javascript" src="../static/js/jPages.min.js"></script>
-    <script type="text/javascript" src="../static/js/highlight.pack.js"></script>
-    <script type="text/javascript" src="../static/js/tabifier.js"></script>
-    <script type="text/javascript" src="../static/js/js.js"></script>
+    <link rel="stylesheet" href="../static/css/gallery.css" />
 </head>
-
 <body>
+    <div class="wrapper">
+        <div class="nav">
+            <a class="l_index" href="main"></a>
+            <a class="l_gallery" href="gallery"></a>
+            <a class="l_comm"></a>
+        </div>
+        <div class="main-content">
+            <ul id="gallery-wrap" class="clearfix">
+                {% for n in range(len(thumbnames)) %}
+                <li class="thumbnail"><a target="_blank" href="/picture?name={{ fullnames[n] }}"><img src="{{ thumbnames[n] }}" alt="{{ fullnames[n] }}"></a></li>
+                {% end for %}
+                {% for n in range(blank_count) %}
+                <li><img src="../static/img/common/blank200.png"></li>
+                {% end for %}
+            </ul>
 
-    <!--一级导航-->
-    <nav>
-        <ul>
-            <li id="a"><a href="main"><img src="../static/img/main/index-link.png" id="indexPage"/></a></li>
-            <li><a href="gallery"><img src="../static/img/main/gallery-link-hover.png" id="galleryPage" /></a></li>
-            <li><a href="communication"><img src="../static/img/main/ac-link.png" id="acPage" /></a></li>
-        </ul>
-    </nav>
-    <div id="content" class="clearfix">
-        <!-- item container -->
-        <ul id="itemContainer">
-            {% for n in range(len(thumbnames)) %}
-            <li class="thumbnail"><a target="_blank" href="/picture?name={{ fullnames[n] }}"><img src="{{ thumbnames[n] }}" alt="{{ fullnames[n] }}"></a></li>
-            {% end for %}
-            {% for n in range(blank_count) %}
-            <li><img src="../static/img/common/blank200.png"></li>
-            {% end for %}
-        </ul>
-
-        <!-- navigation holder -->
+        </div>
         <div class="holder"></div>
+        <div class="push"></div>
     </div>
-    <!--图片全屏显示框-->
-    <div id="showImage">
-        <img src="../static/img/loading.gif" width="60px" height="60px" id="loadgif">
-        <img id="picture" src="">
-        <div id="close">关闭</div>
-    </div>
-    <div id="bg-overlay"></div>
+    <div class="footer"></div>
+
+    <script src="http://libs.baidu.com/jquery/1.9.0/jquery.min.js"></script>
+    <script src="../static/js/jPages.min.js"></script>
     <script>
-        /* when document is ready */
-        $(function() {
-            /* initiate plugin */
+        $(function(){
             $("div.holder").jPages({
-                containerID: "itemContainer",
-                perPage:12,
-                previous:"‹‹‹",
-                next:"›››"
+                containerID : "gallery-wrap",
+                previous : "←",
+                next : "→",
+                perPage : 12,
+                delay : 100
             });
         });
-
-        $(document).ready(function() {
-
-            //一级导航hover图片变换
-            //首页
-            $('#indexPage').hover(function() {
-                $(this).attr('src','../static/img/main/index-link-hover.png');
-            }, function() {
-                $(this).attr('src','../static/img/main/index-link.png')
-            });
-
-            //交流
-            $('#acPage').hover(function() {
-                $(this).attr('src','../static/img/main/ac-link-hover.png');
-            }, function() {
-                $(this).attr('src','../static/img/main/ac-link.png');
-            });
-
-
-            $('ul#itemContainer li.thumbnail').hover(function() {
-                $(this).css('border-color','white');
-            },function() {
-                $(this).css('border-color','black');
-            });
-
-//            $('.thumbnail').click(function() {
-//                $('#loadgif').fadeIn();
-//                var name = $(this).find('img').attr('alt');
-//                //直接请求的方法
-//                //$('#picture').attr('src',"/picture/"+name);
-//                $.ajax({
-//                    type: "get",
-//                    url: "/picture",
-//                    data: { name: name }
-//                }).done(function( msg ) {
-//                            $('#loadgif').fadeOut();
-//                            $('#showImage').animate({width:msg.width+'px',
-//                                height:msg.height+'px'
-//                                ,top:'50%'
-//                                ,left:'50%'
-//                                ,marginTop:-msg.height/2
-//                                ,marginLeft:-msg.width/2},1000,function() {
-//                                $('#picture').attr('src','../'+msg.filename);
-//                            });
-//                            //这里拿到了图片的宽高，和图片名称
-//                            //例如：static/pictures/IMAG0008.jpg 用的时候在前面加上"../"
-//                        });
-//
-//
-//                $('#showImage').fadeIn();
-//                $('#bg-overlay').fadeIn();
-//
-//            });
-//
-//            $('#close').click(function() {
-//                $('#bg-overlay').fadeOut();
-//                $('#showImage').hide();
-//                $('#picture').attr('src','');
-//                $('#showImage').css({width:'600px',height:'400px',marginLeft:'-300px',marginTop:'-200px'});
-//            })
-        });
-
     </script>
 </body>
 </html>

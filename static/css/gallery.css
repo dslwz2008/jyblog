@@ -1,0 +1,24 @@
+/**
+ * Created by peijiqiu on 2014/6/10.
+ * E-mail : peijiqiu@gmail.com
+ */
+
+.nav { position: relative;  margin: 0 auto; margin-top: 140px; text-align: center; width: 129px;}
+.nav a { display: block; width: 129px; height: 21px; cursor: pointer;}
+.nav a.l_index { background: url("../img/common/index-link.png") no-repeat left center;}
+.nav a.l_index:hover { background: url("../img/common/index-link-hover.png")}
+.nav a.l_index:active { background: url("../img/common/index-link-dark.png")}
+.nav a.l_gallery { background: url("../img/common/gallery-link-hover.png") no-repeat left center;}
+.nav a.l_gallery:hover { background: url("../img/common/gallery-link-hover.png")}
+.nav a.l_gallery:active { background: url("../img/common/gallery-link-active.png")}
+.nav a.l_comm { background: url("../img/common/ac-link.png") no-repeat left center;}
+.nav a.l_comm:hover { background: url("../img/common/ac-link-hover.png")}
+.nav a.l_comm:active { background: url("../img/common/ac-link-active.png")}
+
+.main-content {padding-top: 40px;}
+.main-content ul#gallery-wrap { width: 816px; margin: 0 auto;}
+.main-content ul#gallery-wrap li {float:left; border: 2px solid #191919;}
+.main-content ul#gallery-wrap li:hover { border: 2px solid #ffffff;}
+.main-content ul#gallery-wrap li img {width: 200px; height: 200px;}
+
+.holder { margin-bottom: 200px; margin-top: 15px;}
