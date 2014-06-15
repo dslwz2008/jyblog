@@ -27,3 +27,6 @@
 .main-content .link-list li { margin-left:-5px;display: inline-block; width: 200px; height: 50px; line-height:50px;
     vertical-align: middle;background: #252628; }
 .main-content .link-list li a { color: #b3b3b3; font-weight: bold; font-size: 13px; text-decoration: none;}
+.main-content .count { margin: 200px 0;}
+.main-content .count li { display: inline-block;width: 20px; height: 37px; background: #ffffff; margin-left: -5px;
+    line-height: 37px; vertical-align: middle; color: #252628; font-weight: bold;}
