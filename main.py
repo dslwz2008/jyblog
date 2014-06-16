@@ -203,8 +203,10 @@ class CommunicationHandler(tornado.web.RequestHandler):
         # value = self.get_cookie('test')
         # print value
         sketches = dbengine.find_all_pictures(dbengine.COL_SKETCHES)
+        rslt_skchs = sketches[0:8] if len(sketches) > 8 else sketches
         links = dbengine.get_all_links(dbengine.COL_LINKS)
-        self.render('ac.html', sketches=sketches, links=links)
+        rslt_links = links[0:8] if len(links) > 8 else links
+        self.render('ac.html', sketches=rslt_skchs, links=rslt_links)
 
 class UserValidateHandler(tornado.web.RequestHandler):
     def post(self):
