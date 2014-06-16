@@ -32,13 +32,20 @@ PASSWORD = "3856975"
 SECRET = PASSWORD + USERNAME
 COOKIE_NAME = 'crypto'
 ERROR_NO_DESCRIPTION = u'这家伙很懒，没有留下任何描述'
+PAGE_VIEWS = 10000
+
+def accum_page_views():
+    global PAGE_VIEWS
+    PAGE_VIEWS = PAGE_VIEWS + 1
 
 class IndexHandler(tornado.web.RequestHandler):
     def get(self):
+        accum_page_views()
         self.render('index.html')
         
 class MainHandler(tornado.web.RequestHandler):
     def get(self):
+        accum_page_views()
         # doc = dbengine.get_latest_pictures(dbengine.COL_IMAGES, 1)[0]
         doc = dbengine.get_cover_image(dbengine.COL_IMAGES)[0]
         filename = IMAGES_DIR + doc['name']
@@ -153,6 +160,7 @@ class FileUploadHandler(tornado.web.RequestHandler):
 
 class GalleryHandler(tornado.web.RequestHandler):
     def get(self):
+        accum_page_views()
         pictures = dbengine.find_all_pictures(dbengine.COL_IMAGES)
         #这里存放缩略图，不用取大图
         thumbnames = []
@@ -169,6 +177,7 @@ class GalleryHandler(tornado.web.RequestHandler):
 
 class PictureHandler(tornado.web.RequestHandler):
     def get(self):
+        accum_page_views()
         pic_type = self.get_argument('type')
         collection = dbengine.COL_IMAGES
         images_dir = IMAGES_DIR
@@ -200,13 +209,15 @@ class PictureHandler(tornado.web.RequestHandler):
 
 class CommunicationHandler(tornado.web.RequestHandler):
     def get(self):
+        accum_page_views()
         # value = self.get_cookie('test')
         # print value
         sketches = dbengine.find_all_pictures(dbengine.COL_SKETCHES)
         rslt_skchs = sketches[0:8] if len(sketches) > 8 else sketches
         links = dbengine.get_all_links(dbengine.COL_LINKS)
         rslt_links = links[0:8] if len(links) > 8 else links
-        self.render('ac.html', sketches=rslt_skchs, links=rslt_links)
+        view_count = util.pageview_to_string(PAGE_VIEWS)
+        self.render('ac.html', sketches=rslt_skchs, links=rslt_links, count=view_count)
 
 class UserValidateHandler(tornado.web.RequestHandler):
     def post(self):

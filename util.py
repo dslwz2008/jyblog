@@ -52,7 +52,17 @@ def save_binary_to_file(binary, filename):
     fp = open(filename, 'w')
     fp.write(binary)
 
+def pageview_to_string(views):
+    result = str(views)
+    # to 6 numbers
+    if len(result) < 6:
+        result = '0' * (6 - len(result)) + result
+    return result
+
 if __name__ == '__main__':
-    print get_min_wholepage_mount(2)
-    print get_min_wholepage_mount(13)
-    print get_min_wholepage_mount(24)
+    # print get_min_wholepage_mount(2)
+    # print get_min_wholepage_mount(13)
+    # print get_min_wholepage_mount(24)
+    print(pageview_to_string(123))
+    print(pageview_to_string(123456))
+    print(pageview_to_string(1))

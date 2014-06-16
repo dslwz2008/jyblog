@@ -1,3 +1,9 @@
 .idea/
 .DS_Store
 *.pyc
+static/imagedb/sketches/*
+static/imagedb/sketches_thumb/*
+static/imagedb/images/*
+static/imagedb/images_thumb/*
+static/imagedb/links_img/*
+
