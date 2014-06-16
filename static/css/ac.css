@@ -18,8 +18,8 @@
 .main-content .thumb li { display: inline; margin-left: -8px; }
 .main-content .thumb li img { border: 2px solid #191919; width: 100px; height: 100px;   }
 .main-content .thumb li img:hover { border: 2px solid #ffffff}
-.main-content .contact { margin: 0 auto; padding: 20px 0; width:129px; height:21px; background: url("../img/common/index-link.png") no-repeat left center;}
-.main-content .link { margin: 0 auto; padding:20px 0; width:129px; height:21px; background: url("../img/common/index-link.png") no-repeat left center;}
+.main-content .contact { margin: 0 auto; padding: 20px 0; width:129px; height:21px; background: url("../img/common/contact.png") no-repeat left center;}
+.main-content .link { margin: 0 auto; padding:20px 0; width:129px; height:21px; background: url("../img/common/link.png") no-repeat left center;}
 .main-content .contact-wrap { padding-top:25px; background: #252628; width: 628px; height: 103px; vertical-align:middle; margin: 0 auto; text-align: center;}
 .main-content .contact-wrap a { display: block;color: #b3b3b3; font-size: 14px; font-weight: bold; margin: 10px 0; text-decoration: none; }
 
