@@ -29,4 +29,4 @@
 .main-content .link-list li a { color: #b3b3b3; font-weight: bold; font-size: 13px; text-decoration: none;}
 .main-content .count { margin: 200px 0;}
 .main-content .count li { display: inline-block;width: 20px; height: 37px; background: #ffffff; margin-left: -5px;
-    line-height: 37px; vertical-align: middle; color: #252628; font-weight: bold; border-radius: 2px; font-size: 22px;}
+    line-height: 37px; vertical-align: middle; color: #252628; font-weight: bold; border-radius: 2px; font-size: 26px; font-family: '黑体';}
