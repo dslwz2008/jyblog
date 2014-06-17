@@ -21,6 +21,7 @@
 .holder a.jp-current, a.jp-current:hover { 
 	color: #a5a5a5;
 	font-weight: bold;
+	font-family: "黑体";
 }
 
 .holder a.jp-disabled, a.jp-disabled:hover {
