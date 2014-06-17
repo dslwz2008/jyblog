@@ -17,8 +17,8 @@
 
 .main-content {padding-top: 40px;}
 .main-content ul#gallery-wrap { width: 808px; margin: 0 auto;}
-.main-content ul#gallery-wrap li {float:left; width: 202px; height: 202px; line-height: 202px; vertical-align: middle;}
+.main-content ul#gallery-wrap li {float:left; width: 202px; height: 202px; line-height: 202px; vertical-align: middle; }
 .main-content ul#gallery-wrap li img {width: 200px; height: 200px; border: 1px solid #191919;}
 .main-content ul#gallery-wrap li img:hover { border: 1px solid #ffffff;}
-
+.main-content ul#gallery-wrap li .thumb_bg { background: #252628; width: 200px;height: 200px;}
 .holder { margin-bottom: 200px; margin-top: 15px;}
