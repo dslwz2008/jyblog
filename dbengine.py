@@ -13,15 +13,15 @@ COL_SKETCHES = 'sketches'
 COL_LINKS = 'links'
 COL_COMMENTS = 'comments'
 
-def get_picture_by_name(collection, name):
-    """从指定的文档中获取指定名字的图片信息"""
+def get_image_by_id(collection, imageid):
+    """从指定的文档中获取指定id的图片信息"""
     with pymongo.Connection(CONN_STRING, safe=True) as conn:
         db = conn[DB_NAME]
         pictures = db[collection]
         doc = None
 
         try:
-            doc = pictures.find({'name':name})[0]
+            doc = pictures.find({'_id':imageid})[0]
         except:
             print "Unexcepted error:", sys.exc_info()[0]
 
@@ -72,7 +72,7 @@ def add_image(doc_picture, collection):
         db = conn[DB_NAME]
         pictures = db[collection]
         try:
-            pictures.insert(doc_picture)
+            return pictures.insert(doc_picture)
         except:
             print "Unexpected error:", sys.exc_info()[0]
 
