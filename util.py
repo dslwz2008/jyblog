@@ -3,7 +3,14 @@
 
 import tempfile
 import datetime
-from PIL import Image
+import uuid
+
+def uuid_name(filename):
+    filename = filename.encode('utf-8')
+    # 先记下扩展名
+    ext = filename.split('.')[-1]
+    uname = uuid.uuid5(uuid.NAMESPACE_URL, filename)
+    return '%s.%s' % (str(uname), ext)
 
 def get_min_wholepage_mount(count, mount_per_page=12):
     """计算比当前数量多的最小的满页数量"""

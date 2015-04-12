@@ -111,11 +111,11 @@ class UserValidateHandler(tornado.web.RequestHandler):
         password = self.get_argument('pwd')
         result = {}
         if name == 'jingyin' and password == '3856975':
-            result['status'] = 'ok'
+            result['code'] = 1
             crypto = base64.b64encode(SECRET)
             self.set_cookie(COOKIE_NAME, crypto, expires_days=7)
         else:
-            result['status'] = 'error'
+            result['code'] = 'error'
         self.set_header('Content-Type', 'application/json')
         self.write(json.dumps(result))
 
@@ -134,14 +134,16 @@ if __name__ == "__main__":
     tornado.options.parse_command_line()
     app = tornado.web.Application(
         handlers=[(r'/add/image', restapi.AddImageHandler),
-                  (r'/modify/image', restapi.ModifyImageHandler),
+                  (r'/update/image', restapi.ModifyImageHandler),
                   (r'/delete/image', restapi.DeleteImageHandler),
+                  (r'/list', restapi.ListHandler),
                   (r'/add/sketch', restapi.AddSketchHandler),
-                  (r'/modify/sketch', restapi.ModifySketchHandler),
+                  (r'/update/sketch', restapi.ModifySketchHandler),
                   (r'/delete/sketch', restapi.DeleteSketchHandler),
                   (r'/add/link', restapi.AddLinkHandler),
-                  (r'/modify/link', restapi.ModifySketchHandler),
+                  (r'/update/link', restapi.ModifyLinkHandler),
                   (r'/delete/link', restapi.DeleteLinkHandler),
+                  (r'/image/cover', restapi.CoverImageHandler),
                   (r'/manage', ManageHandler),
                   (r'/login', LoginHandler),
                   (r'/validate', UserValidateHandler),
