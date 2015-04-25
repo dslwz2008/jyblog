@@ -3,19 +3,19 @@
 
 import sys
 import pymongo
-from bson.binary import Binary
-from bson.objectid import ObjectId
 
-CONN_STRING = "mongodb://128.199.189.87"
+CONN_STRING = "mongodb://192.168.1.10:27017"
+# CONN_STRING = "mongodb://128.199.189.87:27017"
 DB_NAME = 'jyblog'
 COL_IMAGES = 'images'
 COL_SKETCHES = 'sketches'
 COL_LINKS = 'links'
 COL_COMMENTS = 'comments'
+COL_VISITS = 'visits'
 
 def get_image_by_id(imageid, collection):
     """从指定的文档中获取指定id的图片信息"""
-    with pymongo.Connection(CONN_STRING, safe=True) as conn:
+    with pymongo.MongoClient(CONN_STRING) as conn:
         db = conn[DB_NAME]
         pictures = db[collection]
         doc = None
@@ -30,7 +30,7 @@ def get_image_by_id(imageid, collection):
 
 def get_latest_pictures(collection, page, num):
     """从指定的文档中获取上传时间最近的num张图片"""
-    with pymongo.Connection(CONN_STRING, safe=True) as conn:
+    with pymongo.MongoClient(CONN_STRING) as conn:
         db = conn[DB_NAME]
         pictures = db[collection]
         result = []
@@ -47,9 +47,20 @@ def get_latest_pictures(collection, page, num):
             return result
 
 
+def get_images_number(collection):
+    with pymongo.MongoClient(CONN_STRING) as conn:
+        db = conn[DB_NAME]
+        pictures = db[collection]
+
+        try:
+            return pictures.find().count()
+        except:
+            print "Unexpected error:", sys.exc_info()[0]
+
+
 def find_all_pictures(collection):
     """return all the pictures in DESCENDING order"""
-    with pymongo.Connection(CONN_STRING, safe=True) as conn:
+    with pymongo.MongoClient(CONN_STRING) as conn:
         db = conn[DB_NAME]
         pictures = db[collection]
         result = []
@@ -68,7 +79,7 @@ def find_all_pictures(collection):
 
 def add_image(doc_img, collection):
     """把指定的picture数据存入指定的文档"""
-    with pymongo.Connection(CONN_STRING, safe=True) as conn:
+    with pymongo.MongoClient(CONN_STRING) as conn:
         db = conn[DB_NAME]
         pictures = db[collection]
         try:
@@ -82,7 +93,7 @@ def add_image(doc_img, collection):
             print "Unexpected error:", sys.exc_info()[0]
 
 def update_image(doc_img, collection):
-    with pymongo.Connection(CONN_STRING, safe=True) as conn:
+    with pymongo.MongoClient(CONN_STRING) as conn:
         db = conn[DB_NAME]
         pictures = db[collection]
         try:
@@ -110,7 +121,7 @@ def update_image(doc_img, collection):
 
 def remove_image(imgid, collection):
     """remove an image"""
-    with pymongo.Connection(CONN_STRING, safe=True) as conn:
+    with pymongo.MongoClient(CONN_STRING) as conn:
         db = conn[DB_NAME]
         pictures = db[collection]
         try:
@@ -121,7 +132,7 @@ def remove_image(imgid, collection):
 
 def cancel_cover_image(imgid, collection):
     """cancel cover image which will show in the main page by its filename"""
-    with pymongo.Connection(CONN_STRING, safe=True) as conn:
+    with pymongo.MongoClient(CONN_STRING, safe=True) as conn:
         db = conn[DB_NAME]
         pictures = db[collection]
         try:
@@ -132,7 +143,7 @@ def cancel_cover_image(imgid, collection):
 
 def set_cover_image(imgid, collection):
     """set cover image which will show in the main page by its filename"""
-    with pymongo.Connection(CONN_STRING, safe=True) as conn:
+    with pymongo.MongoClient(CONN_STRING) as conn:
         db = conn[DB_NAME]
         pictures = db[collection]
         try:
@@ -143,7 +154,7 @@ def set_cover_image(imgid, collection):
 
 def get_cover_image(collection):
     """get cover image, return at most one document"""
-    with pymongo.Connection(CONN_STRING, safe=True) as conn:
+    with pymongo.MongoClient(CONN_STRING) as conn:
         db = conn[DB_NAME]
         pictures = db[collection]
         result = []
@@ -161,7 +172,7 @@ def get_cover_image(collection):
 
 def get_all_links(collection):
     """return all the pictures in DESCENDING order"""
-    with pymongo.Connection(CONN_STRING, safe=True) as conn:
+    with pymongo.MongoClient(CONN_STRING) as conn:
         db = conn[DB_NAME]
         links = db[collection]
         result = []
@@ -180,7 +191,7 @@ def get_all_links(collection):
 
 def add_link(doc_link, collection):
     """把指定的link数据存入指定的文档"""
-    with pymongo.Connection(CONN_STRING, safe=True) as conn:
+    with pymongo.MongoClient(CONN_STRING) as conn:
         db = conn[DB_NAME]
         links = db[collection]
         try:
@@ -189,7 +200,7 @@ def add_link(doc_link, collection):
             print "Unexpected error:", sys.exc_info()[0]
 
 def update_link(doc_link, collection):
-    with pymongo.Connection(CONN_STRING, safe=True) as conn:
+    with pymongo.MongoClient(CONN_STRING) as conn:
         db = conn[DB_NAME]
         links = db[collection]
         try:
@@ -204,7 +215,7 @@ def update_link(doc_link, collection):
 
 def remove_link(linkid, collection):
     """把指定的link数据存入指定的文档"""
-    with pymongo.Connection(CONN_STRING, safe=True) as conn:
+    with pymongo.MongoClient(CONN_STRING) as conn:
         db = conn[DB_NAME]
         links = db[collection]
         try:
@@ -212,6 +223,25 @@ def remove_link(linkid, collection):
         except:
             print "Unexpected error:", sys.exc_info()[0]
 
+
+def visit_count(add):
+    with pymongo.MongoClient(CONN_STRING) as conn:
+        db = conn[DB_NAME]
+        visits = db[COL_VISITS]
+        cursor = None
+
+        try:
+            cursor = visits.find()
+        except:
+            print "Unexpected error:", sys.exc_info()[0]
+
+        if cursor:
+            for doc in cursor:
+                result = int(doc['count'])
+                if(add):
+                    result += 1
+                    visits.update({'_id':doc['_id']}, {'count':result})
+                return result
 
 if __name__ == '__main__':
     pass
