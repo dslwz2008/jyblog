@@ -3,6 +3,7 @@
 
 import sys
 import pymongo
+from bson.objectid import ObjectId
 
 CONN_STRING = "mongodb://192.168.1.10:27017"
 # CONN_STRING = "mongodb://128.199.189.87:27017"
@@ -18,15 +19,18 @@ def get_image_by_id(imageid, collection):
     with pymongo.MongoClient(CONN_STRING) as conn:
         db = conn[DB_NAME]
         pictures = db[collection]
-        doc = None
+        cursor = None
+        result = []
 
         try:
-            doc = pictures.find({'_id':imageid})[0]
+            cursor = pictures.find({'_id':ObjectId(imageid)})
         except:
             print "Unexcepted error:", sys.exc_info()[0]
 
-        if doc:
-            return doc
+        if cursor:
+            for doc in cursor:
+                result.append(doc)
+            return result
 
 def get_latest_pictures(collection, page, num):
     """从指定的文档中获取上传时间最近的num张图片"""
@@ -99,23 +103,25 @@ def update_image(doc_img, collection):
         try:
             if collection == COL_IMAGES:
                 if doc_img['cover'] == True:
-                    cursor = pictures.find({'cover':True})
-                    for doc in cursor:
-                        pictures.update({'_id':doc['_id']}, {"$set":{'cover':False}})
-                pictures.update({'_id':doc_img['_id']}, {'$set': {
-                    'name':doc_img['name'],
+                    pictures.find_one_and_update({'cover':True},{"$set":{
+                        'cover':False
+                    }})
+                result = pictures.find_one_and_update({'_id':ObjectId(doc_img['_id'])}, {'$set': {
+                    'imgurl':doc_img['imgurl'],
                     'cover':doc_img['cover'],
-                    'thumbname':doc_img['thumbname'],
+                    'thumburl':doc_img['thumburl'],
                     'uploadtime':doc_img['uploadtime'],
                     'description':doc_img['description']}
-                })
+                }, return_document=pymongo.ReturnDocument.AFTER)
+                print(result)
             else:
-                pictures.update({'_id':doc_img['_id']}, {'$set': {
-                    'name':doc_img['name'],
-                    'thumbname':doc_img['thumbname'],
+                result = pictures.find_one_and_update({'_id':ObjectId(doc_img['_id'])}, {'$set': {
+                    'imgurl':doc_img['imgurl'],
+                    'thumburl':doc_img['thumburl'],
                     'uploadtime':doc_img['uploadtime'],
                     'description':doc_img['description']}
-                })
+                }, return_document=pymongo.ReturnDocument.AFTER)
+                print(result)
         except:
             print("Unexpected error:", sys.exc_info()[0])
 
@@ -125,18 +131,18 @@ def remove_image(imgid, collection):
         db = conn[DB_NAME]
         pictures = db[collection]
         try:
-            pictures.remove({'_id':imgid})
+            pictures.delete_one({'_id':ObjectId(imgid)})
         except:
             print "Unexpected error:", sys.exc_info()[0]
 
 
-def cancel_cover_image(imgid, collection):
+def cancel_cover_image(collection):
     """cancel cover image which will show in the main page by its filename"""
-    with pymongo.MongoClient(CONN_STRING, safe=True) as conn:
+    with pymongo.MongoClient(CONN_STRING) as conn:
         db = conn[DB_NAME]
         pictures = db[collection]
         try:
-            pictures.update({'name':imgid}, {"$set":{'cover':False}})
+            pictures.find_one_and_update({{'cover':True}}, {"$set":{'cover':False}})
         except:
             print "Unexpected error:", sys.exc_info()[0]
 
@@ -147,7 +153,7 @@ def set_cover_image(imgid, collection):
         db = conn[DB_NAME]
         pictures = db[collection]
         try:
-            pictures.update({'_id':imgid}, {"$set":{'cover':True}})
+            pictures.find_one_and_update({'_id':ObjectId(imgid)}, {"$set":{'cover':True}})
         except:
             print "Unexpected error:", sys.exc_info()[0]
 
@@ -204,7 +210,7 @@ def update_link(doc_link, collection):
         db = conn[DB_NAME]
         links = db[collection]
         try:
-            links.update({'_id':doc_link['_id']},{
+            links.find_one_and_update({'_id':ObjectId(doc_link['_id'])},{
                 '$set':{
                     'name':doc_link['name'],
                     'url':doc_link['url']
@@ -219,7 +225,7 @@ def remove_link(linkid, collection):
         db = conn[DB_NAME]
         links = db[collection]
         try:
-            links.remove({'_id':linkid})
+            links.delete_one({'_id':ObjectId(linkid)})
         except:
             print "Unexpected error:", sys.exc_info()[0]
 
@@ -240,7 +246,7 @@ def visit_count(add):
                 result = int(doc['count'])
                 if(add):
                     result += 1
-                    visits.update({'_id':doc['_id']}, {'count':result})
+                    visits.find_one_and_update({'_id':doc['_id']}, {'$set':{'count':result}})
                 return result
 
 if __name__ == '__main__':

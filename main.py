@@ -30,6 +30,7 @@ if __name__ == "__main__":
                   (r'/update/link', restapi.ModifyLinkHandler),
                   (r'/delete/link', restapi.DeleteLinkHandler),
                   (r'/image/cover', restapi.CoverImageHandler),
+                  (r'/image/setcover', restapi.SetCoverHandler),
                   (r'/list/link', restapi.ListLinkHandler),
                   (r'/visitcount', restapi.VisitCountHandler),
                   (r'/validate', restapi.UserValidateHandler),
