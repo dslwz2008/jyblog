@@ -1,0 +1,26 @@
+/**
+ * Created by peijiqiu on 2014/6/8.
+ * E-mail : peijiqiu@gmail.com
+ */
+body { background:#191919 url("../img/common/bg_main.png") no-repeat center top; padding-bottom: 30px;}
+.clear-fix:after { content: " "; display: table; clear: both;}
+.clear-fix { zoom:1;}
+#nav{ width: 100px;  margin: 0 auto;  margin-top: 130px; margin-bottom: 40px;  }
+#nav a { display: block; width: 129px; height: 21px; cursor: pointer;}
+#nav a.l_index { background: url("../img/common/index-link.png") no-repeat center;}
+#nav a.l_index:hover { background: url("../img/common/index-link-hover.png")}
+#nav a.l_index:active { background: url("../img/common/index-link-dark.png")}
+#nav a.l_gallery { background: url("../img/common/gallery-link.png") no-repeat left center;}
+#nav a.l_gallery:hover { background: url("../img/common/gallery-link-hover.png")}
+#nav a.l_gallery:active { background: url("../img/common/gallery-link-active.png")}
+#nav a.l_comm { background: url("../img/common/ac-link.png") no-repeat left center;}
+#nav a.l_comm:hover { background: url("../img/common/ac-link-hover.png")}
+#nav a.l_comm:active { background: url("../img/common/ac-link-active.png")}
+
+/*pagation style*/
+div.pagination {  font-family: "Lucida Sans Unicode", "Lucida Grande", LucidaGrande, "Lucida Sans", Geneva, Verdana, sans-serif;  padding:2px;  margin: 14px;  text-align: center;  font-size: 12px;}
+div.pagination a { margin: 2px; padding: 0.5em 0.64em 0.43em 0.64em;  text-decoration: none;  color: gray;  }
+div.pagination.pagePurple a:hover { color:#b13a3a;}
+div.pagination a:hover, div.pagination a:active { padding: 0.5em 0.64em 0.43em 0.64em;  margin: 2px;  color: #4a4949;  }
+div.pagination span.current { padding: 0.5em 0.64em 0.43em 0.64em; margin: 2px; color: white;  }
+div.pagination span.disabled { display:none;}

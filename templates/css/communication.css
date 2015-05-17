@@ -1,0 +1,17 @@
+/**
+ * Item Name : 
+ * Creater : shenshen
+ * Email : peijiqiu@gmail.com
+ * Created Date : 15/4/25.
+ */
+#nav a.l_comm { background: url('../img/common/ac-link-hover.png') no-repeat center;}
+#sketchList { width: 1024px; margin: 0 auto; text-align: center;}
+#sketchList li { display: inline-block; border: 1px solid black;}
+#sketchList li img { width:100px; height:100px; cursor: pointer;}
+#sketchList li:hover{ border:1px solid white;}
+#linklogo {display: block; width: 144px; height: 21px; margin: 0 auto; background: url('../img/common/link.png') no-repeat center;margin-top: 40px;margin-bottom: 20px;}
+#linkList { width: 843px; margin: 0 auto; text-align: center;}
+#linkList li { display: inline-block; width: 200px; height: 50px; background: #252627;line-height:50px;vertical-align:middle; border: 1px solid black;}
+#linkList li a { color: white; text-align:center; text-decoration:none; font-size:12px;}
+#count { text-align: center; margin-top: 40px;}
+#count li { display: inline-block; color: #252627; padding: 5px; border-radius: 5px;margin: 2px; background: white;}

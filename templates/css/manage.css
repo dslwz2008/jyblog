@@ -1,0 +1,20 @@
+.header { width:100%; position:fixed;background: #222;top:0;left: 0;height: 50px; line-height: 50px; vertical-align:middle; z-index: 9999;}
+.header h1 { font-size: 18px; color: #777; padding-left: 20px; font-weight: bold;}
+.header h1:hover { color: white;}
+.header h1 .user-tip { font-size: 14px; float: right; padding-right: 20px;}
+.header h1 .exit { margin-left: 10px; text-decoration: underline; cursor: pointer;}
+
+/*pagation style*/
+div.pagination {  font-family: "Lucida Sans Unicode", "Lucida Grande", LucidaGrande, "Lucida Sans", Geneva, Verdana, sans-serif;  padding:2px;  margin: 14px;  text-align: center;  font-size: 12px;}
+div.pagination a { margin: 2px; padding: 0.5em 0.64em 0.43em 0.64em;  text-decoration: none;  color: gray;  }
+div.pagination.pagePurple a:hover { color:#b13a3a;}
+div.pagination a:hover, div.pagination a:active { padding: 0.5em 0.64em 0.43em 0.64em;  margin: 2px;  color: #4a4949;  }
+div.pagination span.current { padding: 0.5em 0.64em 0.43em 0.64em; margin: 2px; color: red;  }
+div.pagination span.disabled { display:none;}
+
+#uploadPicForm { display: none;}
+.picList li { display:inline-block; margin: 10px;}
+.picList li img { width: 100px; height: 100px;}
+.picList li input[type='checkbox'] { width: 30px;height: 30px;}
+.picList li .desc { text-align: center;}
+#uploadSketchForm { display: none;}

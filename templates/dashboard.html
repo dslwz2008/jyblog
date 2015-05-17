@@ -1,0 +1,104 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <meta charset="utf-8"/>
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>网站管理</title>
+    <link rel="stylesheet" href="css/jquery-ui-1.9.1.custom.min.css"/>
+    <link rel="stylesheet" href="css/jquery.timepicker.addon.css"/>
+    <!-- Bootstrap -->
+    <link href="css/bootstrap.min.css" rel="stylesheet" media="screen">
+    <link rel="stylesheet" href="css/manage.css" />
+
+</head>
+
+<body>
+    <div class="tabbable tabs-left">
+        <ul class="nav nav-tabs" id="myTab">
+            <li class="active"><a href="#uploadPic">管理图片</a></li>
+            <li><a href="#uploadSketch">管理草图</a></li>
+            <li><a href="#uploadUrl">管理链接</a></li>
+        </ul>
+
+        <div class="tab-content">
+            <div class="tab-pane active" id="uploadPic">
+                <button type="button" class="btn btn-primary" id="uploadImage">上传图片</button>
+                <button type="button" class="btn btn-danger" id="delPic">删除图片</button>
+                <button type="button" class="btn btn-success" id="setCover">设置封面</button>
+
+                <form action="jyblog/add/image" method="post" id="uploadPicForm"
+                      enctype="multipart/form-data">
+                    <label for="picture">选择图片</label>
+                    <input type="file" name="image" id="picture">
+                    <label for="p-thumbnail">缩略图</label>
+                    <input type="file" name="thumb" id="p-thumbnail">
+                    <label for="p-time">选择时间</label>
+                    <input type="text" id="p-time" class="date-picker">
+                    <input type="text" name="uploadtime" id="formtime" style="display: none;">
+                    <label for="p-describe">图片描述</label>
+                    <textarea name="description" rows="10" cols="30" placeholder="添加图片描述…" id="p-describe"></textarea><br/>
+                    <label>是否封面</label>
+                    <select name="cover">
+                        <option value="0">否</option>
+                        <option value="1">是</option>
+                    </select>
+                    <button type="button" id="submitImg">提交</button>
+                    <input type="submit" value="提交" class="btn btn-primary" id="p-submit" style="display: none;" />
+                </form>
+                <ul id="imgList" class="picList">
+
+                </ul>
+                <div id="imgPaing" class="pagination"></div>
+            </div>
+            <div class="tab-pane" id="uploadSketch">
+                <button type="button" class="btn btn-primary" id="uploadSketchImg">上传图片</button>
+                <button type="button" class="btn btn-danger" id="delSketch">删除图片</button>
+
+                <form action="jyblog/add/sketch" method="post" id="uploadSketchForm"
+                      enctype="multipart/form-data">
+                    <label for="picture">选择图片</label>
+                    <input type="file" name="image" />
+                    <label for="p-thumbnail">缩略图</label>
+                    <input type="file" name="thumb" />
+                    <label for="p-time">选择时间</label>
+                    <input type="text" id="s-time" class="date-picker">
+                    <input type="text" name="uploadtime" id="sformtime" style="display: none;">
+                    <label for="p-describe">图片描述</label>
+                    <textarea name="description" rows="10" cols="30" placeholder="添加图片描述…" ></textarea><br/>
+                    <button type="button" id="submitSketchImg">提交</button>
+                    <input type="submit" value="提交" class="btn btn-primary" id="s-submit" style="display: none;" />
+                </form>
+                <ul id="caoTuList" class="picList">
+
+                </ul>
+                <div id="caotuPaing" class="pagination"></div>
+            </div>
+            <div class="tab-pane" id="uploadUrl">
+                <div class="addLinkWrap">
+                    链接名称：<input type="text" id="linkname" />
+                    链接地址：<input type="text" id="linkurl" />
+                    <button type="button" class="btn btn-primary" id="addlink">添加</button>
+                </div>
+                <button type="button" class="btn btn-danger" id="delUrl">删除链接</button>
+                <ul id="linklist">
+
+                </ul>
+            </div>
+        </div>
+    </div>
+    <script src="js/lib/jquery-1.9.1.min.js"></script>
+    <script src="js/lib/jquery-ui-1.9.1.custom.min.js"></script>
+    <script src="js/lib/jquery.timepicker.addon.js"></script>
+    <script src="js/lib/bootstrap.min.js"></script>
+    <script src="js/lib/common.js"></script>
+    <script src="js/lib/jquery.paging.min.js"></script>
+    <script src="js/lib/jquery.form.min.js"></script>
+    <script>
+        var token = cLib.base.getCookie('token');
+        if(token == '') {
+            location.href = 'manage.html';
+        }
+    </script>
+    <script src="js/manage.js"></script>
+</body>
+</html>

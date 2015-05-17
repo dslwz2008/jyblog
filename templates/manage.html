@@ -1,0 +1,45 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <meta http-equiv="Content-Type" content="text/html; charset=utf-8"/>
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>JY-BLOG后台-登录</title>
+    <meta http-equiv="X-UA-Compatible" content="IE=edge,chrome=1"/>
+    <link rel="stylesheet" href="css/common/bootstrap.min.css" />
+    <link rel="stylesheet" href="css/manageindex.css">
+</head>
+<body>
+    <div class="container">
+        <div class="form-signin">
+            <img src="img/index/logo-hover.png" width="145" style="margin: 0 auto; margin-top:20%;display: block;">
+            <h2 class="form-signin-heading" style="text-align: center;">JY-BLOG后台登录</h2>
+            <input type="text" class="form-control" placeholder="用户名" required="" autofocus="" id="name">
+            <input type="password" class="form-control" placeholder="密码" required="" id="pwd">
+            <button class="btn btn-lg btn-primary btn-block"  id="login">登录</button>
+        </div>
+    </div>
+    <script src="js/lib/jquery-1.9.1.min.js"></script>
+    <script src="js/lib/common.js"></script>
+    <script>
+        $('#login').click(function() {
+            var name = $('#name').val();
+            var pwd = $('#pwd').val();
+            cLib.ajax.post({
+                'url': 'jyblog/validate',
+                'data': {
+                    name: name,
+                    pwd: pwd
+                },
+                'success': function(response) {
+                    cLib.base.setCookie('token', response.token,3);
+                    location.href = 'dashboard.html';
+                },
+                'fail': function(desc) {
+                    alert(desc)
+                }
+            })
+        })
+    </script>
+
+</body>
+</html>

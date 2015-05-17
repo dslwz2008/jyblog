@@ -1,0 +1,9 @@
+/**
+ * Created by peijiqiu on 2014/6/10.
+ * E-mail : peijiqiu@gmail.com
+ */
+#nav a.l_gallery { background: url('../img/common/gallery-link-hover.png') no-repeat center;}
+#imgList { width: 1000px; margin:0 auto; text-align: center;}
+#imgList li { display:inline-block; border: 1px solid black; background: #252627; width: 200px; height: 200px;}
+#imgList li:hover { border:1px solid white;}
+#imgList li img { width:200px; height:200px;cursor: pointer;}

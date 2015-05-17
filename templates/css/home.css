@@ -1,0 +1,5 @@
+.home-wrap { text-align: center;}
+#cover-wrap { display: inline-block;}
+#cover { display: inline-block;}
+#desc { display: block; color: #A8A8A8; font-size: 12px; font-weight: bold; text-align: right;}
+#nav a.l_index { background: url('../img/common/index-link-hover.png') no-repeat center;}

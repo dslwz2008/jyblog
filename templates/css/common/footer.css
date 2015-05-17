@@ -4,7 +4,7 @@
  */
 
 /*footer置低*/
-.footer { height: 150px; border-top: 2px solid #3e3e3e; width: 1280px; margin: 0 auto;}
+.footer { height: 150px; /* border-top: 2px solid #3e3e3e; */ width: 1280px; margin: 0 auto;}
 {
     margin: 0;
 }
