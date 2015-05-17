@@ -6,29 +6,37 @@ __author__ = 'Shen Shen'
 import requests
 import datetime
 import time
+import random
+
+WORDS = '1234567890qwertyuiopasdfghjklZxcvbnm[];,./'
+
+def random_desc(n):
+    l = list(WORDS)
+    desc = random.sample(l,n)
+    random.shuffle(desc)
+    return ''.join(desc)
+
 
 def test_add_image():
     url = 'http://localhost:8000/add/image'
-    files = {'image': open('test/Desert.jpg', 'rb'),
-             'thumb':open('test/img (1).jpg', 'rb')}
+    files = {'image': open('test/%s.jpg' % random.randint(1,8), 'rb'),
+             'thumb':open('test/img (%s).jpg' % random.randint(1,20), 'rb')}
 
-    data = {'imgurl': 'test1.jpg',
-            'cover': 1,
-            'thmburl': 'test2.jpg',
+    data = {'cover': 1,
             'uploadtime': int(time.time()),
-            'description':'something...'}
+            'description':random_desc(random.randint(10,20))}
     r = requests.post(url, data=data, files=files)
     print(r.text)
 
 def test_update_image():
     url = 'http://localhost:8000/update/image'
-    files = {'image': open('test/Tulips.jpg', 'rb'),
-             'thumb':open('test/img (2).jpg', 'rb')}
+    files = {'image': open('test/8.jpg', 'rb'),
+             'thumb':open('test/img (12).jpg', 'rb')}
 
-    data = {'id':20150408224403,
+    data = {'id':'553e4dc4d5df24149106b81d',
             'imgurl': 'test3.jpg',
             'cover': 1,
-            'thmburl': 'test4.jpg',
+            'thumburl': 'test4.jpg',
             'uploadtime': int(time.time()),
             'description':'something...ABC   \n\n\nasdasd'}
     r = requests.post(url, data=data, files=files)
@@ -36,19 +44,21 @@ def test_update_image():
 
 def test_delete_image():
     url = 'http://localhost:8000/delete/image'
-    data={'id':20150408224403}
+    data={'id':'553e4dc4d5df24149106b81d'}
     r = requests.get(url, params = data)
     print(r.url)
 
 def test_add_sketch():
     url = 'http://localhost:8000/add/sketch'
-    files = {'image': open('test/Chrysanthemum.jpg', 'rb'),
-             'thumb':open('test/img (3).jpg', 'rb')}
 
-    data = {'imgurl': 'test5.jpg',
-            'thmburl': 'test6.jpg',
+    files = {'image': open('test/%s.jpg' % random.randint(1,8), 'rb'),
+             'thumb':open('test/img (%s).jpg' % random.randint(1,20), 'rb')}
+
+    data = {'imgurl': 'test%s.jpg' % random.randint(0,10000),
+            'thumburl': 'testthumb%s.jpg' % random.randint(0,10000),
             'uploadtime': int(time.time()),
-            'description':'something...ABC   \n\n\nasdasd'}
+            'description':random_desc(random.randint(10,20))}
+
     r = requests.post(url, data=data, files=files)
     print(r.text)
 
@@ -59,7 +69,7 @@ def test_update_sketch():
 
     data = {'id':20150408224404,
             'imgurl': 'test7.jpg',
-            'thmburl': 'test8.jpg',
+            'thumburl': 'test8.jpg',
             'uploadtime': int(time.time()),
             'description':'something...ABC   \n\n\nasdasd'}
     r = requests.post(url, data=data, files=files)
@@ -88,7 +98,7 @@ def test_update_link():
 
 def test_delete_link():
     url = 'http://localhost:8000/delete/link'
-    data={'id':20150406192358}
+    data={'id':150425164330148860}
     r = requests.get(url, params = data)
     print(r.url)
 
@@ -102,13 +112,19 @@ def test_list_image():
     print(r.text)
 
 if __name__ == '__main__':
-    test_add_image()
+    for i in range(30):
+        test_add_image()
     # test_update_image()
     # test_delete_image()
-    # test_add_sketch()
+
+    # for i in range(5):
+    #     test_add_sketch()
     # test_update_sketch()
     # test_delete_sketch()
-    # test_add_link()
+
+    # for i in range(5):
+    #     test_add_link()
     # test_update_link()
     # test_delete_link()
+
     # test_list_image()
