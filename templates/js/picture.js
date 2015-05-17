@@ -7,7 +7,7 @@
 $(function() {
     var url = getUrlParam('url');
     var desc = getUrlParam('desc');
-    $('#cover').html('<img id="coverPic" src="http://192.168.1.10:81/'+url+'">')
+    $('#cover').html('<img id="coverPic" src="'+cLib.jyblog.getImgUrl(url)+'">');
     $('#desc').text(desc);
 
     function getUrlParam (name){
