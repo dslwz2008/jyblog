@@ -19,14 +19,11 @@ $(function() {
                         var str = '';
                         for(var i=0;i<12;i++) {
                             if(imgList[i] != undefined) {
-                                str+='<li><a target="_blank" href="picture.html?url='+imgList[i].imgurl+'&desc='+imgList[i].description+'"><img src="http://192.168.1.10:81/'+imgList[i].thumburl+'"></a></li>'
+                                str+='<li><a target="_blank" href="picture.html?url='+imgList[i].imgurl+'&desc='+imgList[i].description+'"><img src="'+cLib.jyblog.getImgUrl(imgList[i].thumburl)+'"></a></li>'
                             } else {
                                 str +='<li></li>'
                             }
                         }
-                        //for(var i in imgList) {
-                        //    str+='<li><a target="_blank" href="picture.html?url='+imgList[i].imgurl+'&desc='+imgList[i].description+'"><img src="http://192.168.1.10:81/'+imgList[i].thumburl+'"></a></li>'
-                        //}
                         $('#imgList').html(str);
                     })
                 })

@@ -20,8 +20,8 @@ $(function(){
                             for(var i in imgList) {
                                 str+='<li>' +
                                 '<input type="checkbox" class="pic" id="pic-'+imgList[i]._id.$oid+'">'+
-                                '<img class="thumb" src="http://192.168.1.10:81/'+imgList[i].thumburl+'">'+
-                                '<img class="bigpic" src="http://192.168.1.10:81/'+imgList[i].imgurl+'">'+
+                                '<img class="thumb" src="'+cLib.jyblog.getImgUrl(imgList[i].thumburl)+'">'+
+                                '<img class="bigpic" src="'+cLib.jyblog.getImgUrl(imgList[i].imgurl)+'">'+
                                 '<p class="desc">'+imgList[i].description+'</p>'+
                                 '</li>'
                             }
@@ -135,8 +135,8 @@ $(function(){
                             for(var i in imgList) {
                                 str+='<li>' +
                                 '<input type="checkbox" class="pic" id="pic-'+imgList[i]._id.$oid+'">'+
-                                '<img class="thumb" src="http://192.168.1.10:81/'+imgList[i].thumburl+'">'+
-                                '<img class="bigpic" src="http://192.168.1.10:81/'+imgList[i].imgurl+'">'+
+                                '<img class="thumb" src="'+cLib.jyblog.getImgUrl(imgList[i].thumburl)+'">'+
+                                '<img class="bigpic" src="'+cLib.jyblog.getImgUrl(imgList[i].imgurl)+'">'+
                                 '<p class="desc">'+imgList[i].description+'</p>'+
                                 '</li>'
                             }

@@ -13,7 +13,7 @@ $(function() {
         'data': {},
         'success': function (response) {
             if(response.image) {
-                $('#cover').html('<img id="coverPic" src="http://192.168.1.10:81/'+response.image.imgurl+'">')
+                $('#cover').html('<img id="coverPic" src="'+cLib.jyblog.getImgUrl(response.image.imgurl)+'">')
                 $('#desc').text(response.image.description);
             }
         },

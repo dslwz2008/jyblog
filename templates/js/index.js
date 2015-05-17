@@ -7,7 +7,6 @@ $(document).ready(function() {
     });
 
     $enterLogo.bind('click', function() {
-//        $(this).attr('src','img/index/logo-active.png');
         window.location.href = "main"
     })
 
