@@ -82,18 +82,18 @@ $(function(){
         $('#uploadPicForm').fadeToggle();
     });
 
+    $('#uploadPicForm').submit(function() {
+        // submit the form
+        $(this).ajaxSubmit(function() {
+            alert('成功上传图片');
+            getGalleryImg();
+        });
+        // return false to prevent normal browser submit and page navigation
+        return false;
+    });
     $('#submitImg').click(function() {
         var endtime = $('#p-time').datetimepicker('getDate').getTime();
         $('#formtime').val(endtime);
-        $('#uploadPicForm').submit(function() {
-            // submit the form
-            $(this).ajaxSubmit(function() {
-                alert('成功上传图片');
-                getGalleryImg();
-            });
-            // return false to prevent normal browser submit and page navigation
-            return false;
-        });
         $('#p-submit').click();
     });
 
