@@ -8,6 +8,7 @@ import dbengine
 import datetime
 import base64
 import os
+import os.path
 import util
 from commons import *
 from bson.json_util import *
@@ -87,8 +88,12 @@ class DeleteImageHandler(tornado.web.RequestHandler):
             docs = dbengine.get_image_by_id(i, dbengine.COL_IMAGES)
             if len(docs) > 0:
                 doc_img = docs[0]
-                os.remove(IMAGES_DIR + doc_img['imgurl'].split('/')[-1])
-                os.remove(IMAGES_DIR + doc_img['thumburl'].split('/')[-1])
+                imgfile = IMAGES_DIR + doc_img['imgurl'].split('/')[-1]
+                if os.path.exists(imgfile):
+                    os.remove(imgfile)
+                thumbfile = IMAGES_DIR + doc_img['thumburl'].split('/')[-1]
+                if os.path.exists(thumbfile):
+                    os.remove(thumbfile)
                 dbengine.remove_image(i, dbengine.COL_IMAGES)
         result = {}
         result['code'] = 1
@@ -195,8 +200,12 @@ class DeleteSketchHandler(tornado.web.RequestHandler):
             docs = dbengine.get_image_by_id(i, dbengine.COL_SKETCHES)
             if len(docs) > 0:
                 doc_img = docs[0]
-                os.remove(SKETCHES_DIR + doc_img['imgurl'].split('/')[-1])
-                os.remove(SKETCHES_DIR + doc_img['thumburl'].split('/')[-1])
+                imgfile = SKETCHES_DIR + doc_img['imgurl'].split('/')[-1]
+                if os.path.exists(imgfile):
+                    os.remove(imgfile)
+                thumbfile = SKETCHES_DIR + doc_img['thumburl'].split('/')[-1]
+                if os.path.exists(thumbfile):
+                    os.remove(thumbfile)
                 dbengine.remove_image(i, dbengine.COL_SKETCHES)
         result = {}
         result['code'] = 1
