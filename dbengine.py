@@ -5,8 +5,8 @@ import sys
 import pymongo
 from bson.objectid import ObjectId
 
-CONN_STRING = "mongodb://192.168.1.10:27017"
-# CONN_STRING = "mongodb://128.199.189.87:27017"
+# CONN_STRING = "mongodb://192.168.1.10:27017"
+CONN_STRING = "mongodb://128.199.189.87:27017"
 DB_NAME = 'jyblog'
 COL_IMAGES = 'images'
 COL_SKETCHES = 'sketches'
@@ -142,7 +142,7 @@ def cancel_cover_image(collection):
         db = conn[DB_NAME]
         pictures = db[collection]
         try:
-            pictures.find_one_and_update({{'cover':True}}, {"$set":{'cover':False}})
+            pictures.find_one_and_update({'cover':True}, {"$set":{'cover':False}})
         except:
             print "Unexpected error:", sys.exc_info()[0]
 
