@@ -3,7 +3,7 @@
  * E-mail : peijiqiu@gmail.com
  */
 html { height: 100%;}
-body { height:100%; background: #191919 url("../img/common/bg.png") no-repeat center top;}
+body { height:100%; background: #191919 url("../img/common/bg.png") no-repeat center top; overflow: hidden;}
 .logo { display: block; width:145px; height:139px; position:absolute; left:50%; top:50%; margin-left:-72px; margin-top: -89px;
         background: url("../img/index/logo.png") no-repeat left center; cursor: pointer; }
 .logo:hover { background: url("../img/index/logo-hover.png")}
